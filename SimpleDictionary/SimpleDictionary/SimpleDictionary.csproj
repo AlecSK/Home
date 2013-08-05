@@ -256,12 +256,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Files\SDOptions.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\Модель данных.cd" />
     <None Include="Linq\SDLinq.dbml.layout">
       <DependentUpon>SDLinq.dbml</DependentUpon>
     </None>
