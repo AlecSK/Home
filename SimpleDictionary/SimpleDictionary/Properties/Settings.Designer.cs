@@ -37,8 +37,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\Projects;Integrated Security=True;Initial Catalog=SupportDB" +
-            ";Connect Timeout=15;Encrypt=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=SupportDB;Integrated Security=True;Connect Timeout=" +
+            "15;Encrypt=False")]
         public string ConnectionSQL {
             get {
                 return ((string)(this["ConnectionSQL"]));
@@ -49,7 +49,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;Integr" +
-            "ated Security=True;Connect Timeout=10")]
+            "ated Security=True;User Instance=True;MultipleActiveResultSets=True;Connect Time" +
+            "out=10")]
         public string ConnectionExpress {
             get {
                 return ((string)(this["ConnectionExpress"]));

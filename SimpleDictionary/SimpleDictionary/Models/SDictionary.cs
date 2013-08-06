@@ -213,13 +213,13 @@ namespace SimpleDictionary.Models
 
                 if (columnName == "ItemName")
                 {
-                    if (_intValue == null || _intValue == 0)
-                    {
-                    }
-                    else
+                    if (_currentN > 11)
                     {
                         if (!Utils.IsValidName(_name)) result = "Наименование содержит недопустимые символы!";
                         else if (Utils.IsReservedWord(_name)) result = "Нельзя использовать зарезервированные слова C#!";
+                    }
+                    else
+                    {
                     }
                 }
                 return result;

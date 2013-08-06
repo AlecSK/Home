@@ -24,8 +24,8 @@ namespace SimpleDictionary.UnitTests
         public void TestMethod2()
         {
             const string ConnectionString =
-                "Data Source=10.1.1.127;Initial Catalog=PRIZ;Persist Security Info=True;User ID=sa;Password=zXcvbnm512;Connect Timeout=3";
-            var res = SDRepository.GetDictionary(ConnectionString, Dictionaries.DataType);
+                @"Data Source=(LocalDB)\Projects;AttachDbFilename=|DataDirectory|\DB\SupportDB.mdf;Integrated Security=True;Connect Timeout=3";
+            var res = SDRepository.GetDictionary(ConnectionString, Dictionaries.DataTypesList);
             foreach (var parameter in res)
             {
                 Debug.Print("{0} - {1}", parameter.IntValue, parameter.Description);

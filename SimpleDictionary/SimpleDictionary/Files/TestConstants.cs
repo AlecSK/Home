@@ -88,7 +88,7 @@ namespace Constants
     {
 
         ///<summary> Словарь типов данных </summary>
-        public const int DataType = 12;
+        public const int DataTypesList = 12;
     }
 
 
