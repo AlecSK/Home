@@ -26,8 +26,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.1.1.127;Initial Catalog=PRIZ;Persist Security Info=True;User ID=sa" +
-            ";Password=zXcvbnm512;Connect Timeout=30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\Projects;Integrated Security=True;Initial Catalog=SupportDB" +
+            ";Connect Timeout=15;Encrypt=False")]
         public string ConnectionTest {
             get {
                 return ((string)(this["ConnectionTest"]));
@@ -37,18 +37,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\Projects;Integrated Security=True;Initial Catalog=SimpleDic" +
-            "tionary;Connect Timeout=15;Encrypt=False")]
-        public string ConnectionLocal {
-            get {
-                return ((string)(this["ConnectionLocal"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=vSQLServ;Initial Catalog=SupportDB;User ID=sa;Password=zXcvbnm512")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\Projects;Integrated Security=True;Initial Catalog=SupportDB" +
+            ";Connect Timeout=15;Encrypt=False")]
         public string ConnectionSQL {
             get {
                 return ((string)(this["ConnectionSQL"]));
@@ -58,17 +48,17 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\v11.0;Integrated Security=True;Initial Catalog=SupportDB;Co" +
-            "nnect Timeout=15;Encrypt=False")]
-        public string DBConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;Integr" +
+            "ated Security=True;Connect Timeout=10")]
+        public string ConnectionExpress {
             get {
-                return ((string)(this["DBConnectionString"]));
+                return ((string)(this["ConnectionExpress"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ConnectionLocal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ConnectionLocalDB")]
         public string UseConnection {
             get {
                 return ((string)(this["UseConnection"]));
@@ -78,11 +68,22 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.1.1.127;Initial Catalog=PRIZ;Persist Security Info=True;User ID=sa" +
-            ";Password=zXcvbnm512;Connect Timeout=30")]
-        public string ConnectionTestPRIZ {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\Projects;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;" +
+            "Integrated Security=True;Connect Timeout=10")]
+        public string DBConnectionString {
             get {
-                return ((string)(this["ConnectionTestPRIZ"]));
+                return ((string)(this["DBConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\Projects;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;" +
+            "Integrated Security=True;Connect Timeout=10")]
+        public string ConnectionLocalDB {
+            get {
+                return ((string)(this["ConnectionLocalDB"]));
             }
         }
     }
