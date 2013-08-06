@@ -5,10 +5,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Виды отображения DataGrid RowDelails -->
-    <XmlDataProvider x:Key="ComboBoxDataSource1" >
+    <XmlDataProvider x:Key="ComboBoxDataSource1">
         <x:XData>
             <x:Dictionary>
-                
+
                 <c:DataGridRowDetailsVisibilityMode>Collapsed</c:DataGridRowDetailsVisibilityMode>
                 <sys:String>Скрыты</sys:String>
 
@@ -17,13 +17,12 @@
 
                 <c:DataGridRowDetailsVisibilityMode>Visible</c:DataGridRowDetailsVisibilityMode>
                 <sys:String>Все</sys:String>
-                
+
             </x:Dictionary>
         </x:XData>
-    </XmlDataProvider>    
-    
-    
-    
+    </XmlDataProvider>
+
+
     <!-- Виды отображения DataGrid RowDelails -->
     <XmlDataProvider x:Key="ComboBoxDataSource" XPath="Dictionary">
         <x:XData>
@@ -47,7 +46,7 @@
         <x:XData>
             <DefaultRowDetailsVisibilityMode xmlns="">
                 <Key>
-                    <c:DataGridRowDetailsVisibilityMode Values="VisibleWhenSelected"></c:DataGridRowDetailsVisibilityMode>
+                    <c:DataGridRowDetailsVisibilityMode Values="VisibleWhenSelected" />
                 </Key>
                 <Value>
                     <sys:String>Строка</sys:String>
@@ -55,5 +54,5 @@
             </DefaultRowDetailsVisibilityMode>
         </x:XData>
     </XmlDataProvider>
-    
+
 </ResourceDictionary>

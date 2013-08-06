@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SimpleDictionary.Utility
 {
-    static class DeepCopy
+    internal static class DeepCopy
     {
         /// <summary>
         /// Makes a deep copy of the specified Object.
@@ -17,14 +17,12 @@ namespace SimpleDictionary.Utility
         /// <returns>Deep copy of the Object</returns>
         public static T Make<T>(T objectToCopy) where T : class
         {
-
             using (var ms = new MemoryStream())
             {
-
                 var bf = new BinaryFormatter();
                 bf.Serialize(ms, objectToCopy);
                 ms.Position = 0;
-                return (T)bf.Deserialize(ms);
+                return (T) bf.Deserialize(ms);
             }
         }
     }

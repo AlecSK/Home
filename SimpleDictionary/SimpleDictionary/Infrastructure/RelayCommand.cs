@@ -4,17 +4,15 @@ using System.Windows.Input;
 
 namespace SimpleDictionary.Infrastructure
 {
-
     /// <summary>
     /// A command whose sole purpose is to relay its functionality to other objects by invoking delegates. The default return value for the CanExecute method is 'true'.
     /// </summary>
     public class RelayCommand<T> : ICommand
     {
-
         #region Declarations
 
-        readonly Predicate<T> _canExecute;
-        readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
+        private readonly Action<T> _execute;
 
         #endregion
 
@@ -36,7 +34,6 @@ namespace SimpleDictionary.Infrastructure
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-
             if (execute == null)
                 throw new ArgumentNullException("execute");
             _execute = execute;
@@ -51,13 +48,11 @@ namespace SimpleDictionary.Infrastructure
         {
             add
             {
-
                 if (_canExecute != null)
                     CommandManager.RequerySuggested += value;
             }
             remove
             {
-
                 if (_canExecute != null)
                     CommandManager.RequerySuggested -= value;
             }
@@ -66,12 +61,12 @@ namespace SimpleDictionary.Infrastructure
         [DebuggerStepThrough]
         public Boolean CanExecute(Object parameter)
         {
-            return _canExecute == null || _canExecute((T)parameter);
+            return _canExecute == null || _canExecute((T) parameter);
         }
 
         public void Execute(Object parameter)
         {
-            _execute((T)parameter);
+            _execute((T) parameter);
         }
 
         #endregion
@@ -82,11 +77,10 @@ namespace SimpleDictionary.Infrastructure
     /// </summary>
     public class RelayCommand : ICommand
     {
-
         #region Declarations
 
-        readonly Func<Boolean> _canExecute;
-        readonly Action _execute;
+        private readonly Func<Boolean> _canExecute;
+        private readonly Action _execute;
 
         #endregion
 
@@ -108,7 +102,6 @@ namespace SimpleDictionary.Infrastructure
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action execute, Func<Boolean> canExecute)
         {
-
             if (execute == null)
                 throw new ArgumentNullException("execute");
             _execute = execute;
@@ -123,13 +116,11 @@ namespace SimpleDictionary.Infrastructure
         {
             add
             {
-
                 if (_canExecute != null)
                     CommandManager.RequerySuggested += value;
             }
             remove
             {
-
                 if (_canExecute != null)
                     CommandManager.RequerySuggested -= value;
             }

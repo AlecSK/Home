@@ -29,7 +29,7 @@ namespace SimpleDictionary.Views
         {
             try
             {
-                ((AppParametersViewModel)this.DataContext).ConnectExecute();
+                ((AppParametersViewModel) this.DataContext).ConnectExecute();
             }
             catch
             {

@@ -6,6 +6,7 @@ namespace SimpleDictionary.Infrastructure
     public class Notification : INotifyPropertyChanged
     {
         private string _message;
+
         public string Message
         {
             get { return _message; }
@@ -19,6 +20,7 @@ namespace SimpleDictionary.Infrastructure
         }
 
         private int _id;
+
         public int Id
         {
             get { return _id; }
@@ -32,6 +34,7 @@ namespace SimpleDictionary.Infrastructure
         }
 
         private string _imageUrl;
+
         public string ImageUrl
         {
             get { return _imageUrl; }
@@ -45,6 +48,7 @@ namespace SimpleDictionary.Infrastructure
         }
 
         private string _title;
+
         public string Title
         {
             get { return _title; }
@@ -66,5 +70,7 @@ namespace SimpleDictionary.Infrastructure
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class Notifications : ObservableCollection<Notification> { }
+    public class Notifications : ObservableCollection<Notification>
+    {
+    }
 }

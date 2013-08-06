@@ -9,11 +9,10 @@ using SimpleDictionary.Linq;
 
 namespace SimpleDictionary.Models
 {
-    [Export(typeof(ISDRepository))]
+    [Export(typeof (ISDRepository))]
     public class SDRepository : ISDRepository
     {
-
-        readonly ObservableCollection<SDictionary> _sDictionaries; //Присвоение значения только в конструкторе
+        private readonly ObservableCollection<SDictionary> _sDictionaries; //Присвоение значения только в конструкторе
 
 
         /// <summary>
@@ -24,19 +23,19 @@ namespace SimpleDictionary.Models
             using (var dc = new SDLinqDataContext(App.ConnectionString))
             {
                 var query = from e in dc.SimpleDictionary
-                            where e.RecType == 'D'
-                            orderby e.SortN
-                            select
-                                new SDictionary(e.SD, e.RecType, e.ParentSD, e.CurrentN, e.Name, e.Description, e.SortN,
-                                               e.IntValue, e.FloatValue, e.StringValue, e.DateValue, e.MultiValue, e.MemoValue,
-                                               e.Comment, e.IsDeleted, e.CreationDate, e.ChangeDate);
+                    where e.RecType == 'D'
+                    orderby e.SortN
+                    select
+                        new SDictionary(e.SD, e.RecType, e.ParentSD, e.CurrentN, e.Name, e.Description, e.SortN,
+                            e.IntValue, e.FloatValue, e.StringValue, e.DateValue, e.MultiValue, e.MemoValue,
+                            e.Comment, e.IsDeleted, e.CreationDate, e.ChangeDate);
                 _sDictionaries = new ObservableCollection<SDictionary>(query.ToList());
             }
             Utils.TraceLog("Загрузка словарей в репозитарий", "SDRepository", _sDictionaries.Count);
         }
 
 
-        SDictionary GetLocalCopyBySD(int sd)
+        private SDictionary GetLocalCopyBySD(int sd)
         {
             return _sDictionaries.SingleOrDefault(r => r.SD.Equals(sd));
         }
@@ -53,13 +52,14 @@ namespace SimpleDictionary.Models
         {
             if (sDict == null) throw new ArgumentNullException("sDict");
             var local = this.GetLocalCopyBySD(sDict.SD);
-            
+
             //удаление
             using (var dc = new SDLinqDataContext(App.ConnectionString))
             {
                 var children = dc.SimpleDictionary.Where(r => r.ParentSD == sDict.SD);
-                if (children.Any()) throw new DataIntegrityException(Utility.Const.RESTRICT_PARENT_DELETE, sDict.ItemName, sDict.SD);
-                
+                if (children.Any())
+                    throw new DataIntegrityException(Utility.Const.RESTRICT_PARENT_DELETE, sDict.ItemName, sDict.SD);
+
                 var forDeleteList = dc.SimpleDictionary.Where(r => r.SD == sDict.SD);
                 foreach (var d in forDeleteList)
                 {
@@ -103,7 +103,7 @@ namespace SimpleDictionary.Models
                 {
                     row.MemoValue = Serializator<ObservableCollection<SDOption>>.ToXml(sDict.DictionaryOptions);
                     //ObservableCollection<SDOption> o2 = Serializator<ObservableCollection<SDOption>>.FromXml(sDict.MemoValue);
-                }                
+                }
 
                 row.IntValue = sDict.IntValue;
                 row.FloatValue = sDict.FloatValue;
@@ -122,16 +122,15 @@ namespace SimpleDictionary.Models
                 }
                 dc.SubmitChanges();
                 //Сохраняем все параметры этого словаря
-                foreach (SDValue dictionaryValue in sDict.DictionaryValues.Where(r=>r.IsChanged))
+                foreach (SDValue dictionaryValue in sDict.DictionaryValues.Where(r => r.IsChanged))
                 {
                     res &= dictionaryValue.Save();
                     // Проверяем, не менялся ли вручную номер версии
-                    if (sDict.SD==11 && dictionaryValue.ItemName=="Version")
+                    if (sDict.SD == 11 && dictionaryValue.ItemName == "Version")
                     {
                         ReadVersion();
                     }
                 }
-
             }
 
             WrightVersion();
@@ -175,22 +174,24 @@ namespace SimpleDictionary.Models
         }
 
 
-        public IEnumerable<SearchResult> GetSearchResults(string filterString=null)
+        public IEnumerable<SearchResult> GetSearchResults(string filterString = null)
         {
             IEnumerable<SearchResult> query;
 
             if (string.IsNullOrEmpty(filterString))
             {
                 query = from e in _sDictionaries
-                            orderby e.SortN
-                            select new SearchResult(e.SD, e.ItemName, e.Description, e.SortN, e.DictionaryValues.Count());
+                    orderby e.SortN
+                    select new SearchResult(e.SD, e.ItemName, e.Description, e.SortN, e.DictionaryValues.Count());
             }
             else
             {
                 query = from e in _sDictionaries
-                            where e.ItemName.ToUpper().Contains(filterString.ToUpper()) || e.Description.ToUpper().Contains(filterString.ToUpper())
-                            orderby e.SortN
-                            select new SearchResult(e.SD, e.ItemName, e.Description, e.SortN, e.DictionaryValues.Count());
+                    where
+                        e.ItemName.ToUpper().Contains(filterString.ToUpper()) ||
+                        e.Description.ToUpper().Contains(filterString.ToUpper())
+                    orderby e.SortN
+                    select new SearchResult(e.SD, e.ItemName, e.Description, e.SortN, e.DictionaryValues.Count());
             }
             return new ObservableCollection<SearchResult>(query.ToList());
         }
@@ -202,11 +203,11 @@ namespace SimpleDictionary.Models
             if (dictValue == null) throw new ArgumentNullException("dictValue");
 
             SDictionary localDict = this.GetLocalCopyBySD(sDict.SD);
-            
+
             SDValue localValue = localDict.DictionaryValues.SingleOrDefault(r => r.SD.Equals(dictValue.SD));
 
 
-            if (localValue!=null)
+            if (localValue != null)
             {
                 //Элемент был сохранен ранее
                 using (var dc = new SDLinqDataContext(App.ConnectionString))
@@ -221,7 +222,6 @@ namespace SimpleDictionary.Models
 
             bool res = sDict.DictionaryValues.Remove(dictValue);
             Utils.TraceLog("Исключение элемента из коллекции", dictValue.ItemName, Convert.ToInt32(res));
-
         }
 
 
@@ -232,7 +232,6 @@ namespace SimpleDictionary.Models
             return child;
         }
 
-
         #region Версия словаря
 
         private string _majorVersion;
@@ -241,7 +240,7 @@ namespace SimpleDictionary.Models
 
         private void WrightVersion()
         {
-            int newMinorVersion = _minorVersion+1;
+            int newMinorVersion = _minorVersion + 1;
             DateTime newVersionDate = DateTime.Now;
 
             var d = GetLocalCopyBySD(11);

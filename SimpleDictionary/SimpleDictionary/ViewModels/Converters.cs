@@ -8,7 +8,6 @@ using System.Windows.Data;
 
 namespace SimpleDictionary.ViewModels
 {
-
     public class RowIsValidConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -16,19 +15,20 @@ namespace SimpleDictionary.ViewModels
             return System.Convert.ToBoolean(value) ? "" : "!";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
 
-    [ValueConversion(typeof(DateTime), typeof(String))]
+    [ValueConversion(typeof (DateTime), typeof (String))]
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DateTime date = (DateTime)value;
+            DateTime date = (DateTime) value;
             return date.ToShortDateString();
         }
 
@@ -43,7 +43,4 @@ namespace SimpleDictionary.ViewModels
             return DependencyProperty.UnsetValue;
         }
     }
-
-
-
 }

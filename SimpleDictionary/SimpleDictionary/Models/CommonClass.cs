@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using SimpleDictionary.Infrastructure;
 
-namespace SimpleDictionary.Models 
+namespace SimpleDictionary.Models
 {
-    
     [Serializable]
     public abstract class CommonClass : ObservableObject
     {
@@ -50,7 +49,7 @@ namespace SimpleDictionary.Models
             set
             {
                 _parentSD = value;
-                this.SD = (_parentSD ?? 0) * 100 + _currentN;
+                this.SD = (_parentSD ?? 0)*100 + _currentN;
                 RaisePropertyChanged("ParentSD");
                 IsChanged = true;
             }
@@ -98,7 +97,7 @@ namespace SimpleDictionary.Models
             set
             {
                 _currentN = value;
-                this.SD = (_parentSD ?? 0) * 100 + _currentN;
+                this.SD = (_parentSD ?? 0)*100 + _currentN;
                 RaisePropertyChanged("CurrentN");
                 IsChanged = true;
             }
@@ -279,7 +278,5 @@ namespace SimpleDictionary.Models
                 RaisePropertyChanged("SysMessage");
             }
         }
-
-
     }
 }

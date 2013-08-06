@@ -13,7 +13,9 @@ namespace SimpleDictionary.Models
         private int? _sortNumber;
         private int _valuesCount;
 
-        public SearchResult() {}
+        public SearchResult()
+        {
+        }
 
         public int SD
         {

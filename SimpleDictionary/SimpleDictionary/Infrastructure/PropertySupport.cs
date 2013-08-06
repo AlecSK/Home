@@ -22,7 +22,8 @@ namespace SimpleDictionary.Infrastructure
             var property = memberExpression.Member as PropertyInfo;
             if (property == null)
             {
-                throw new ArgumentException("The member access expression does not access a property.", "propertyExpresssion");
+                throw new ArgumentException("The member access expression does not access a property.",
+                    "propertyExpresssion");
             }
 
             var getMethod = property.GetGetMethod(true);

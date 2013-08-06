@@ -2,7 +2,6 @@
 
 namespace SimpleDictionary.Dialog
 {
-
     /// <summary>
     /// This is a very bare bones implementation of an IDialog service.
     /// There should be many more overloads for showing messages to make programming easier and to provide support for TaskDialog.

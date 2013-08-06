@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SupportDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="SupportDBModel.Store" Alias="Self" Provider="System.Data.SqlClient"
+              ProviderManifestToken="2008"
+              xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
+              xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SupportDBModelStoreContainer">
-          <EntitySet Name="SimpleDictionary" EntityType="SupportDBModel.Store.SimpleDictionary" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SimpleDictionary" EntityType="SupportDBModel.Store.SimpleDictionary" store:Type="Tables"
+                     Schema="dbo" />
           <AssociationSet Name="Parent_Dictionary" Association="SupportDBModel.Store.Parent_Dictionary">
             <End Role="SimpleDictionary" EntitySet="SimpleDictionary" />
             <End Role="SimpleDictionary1" EntitySet="SimpleDictionary" />
@@ -46,10 +51,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SimpleDictionary.Entities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Schema Namespace="SimpleDictionary.Entities" Alias="Self"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="DataBase" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="SimpleDictionary" EntityType="SimpleDictionary.Entities.SimpleDictionary" />
           <AssociationSet Name="EDictionaryEDictValue" Association="SimpleDictionary.Entities.EDictionaryEDictValue">
@@ -70,19 +78,21 @@
           <Property Name="ChangeDate" Type="DateTime" />
           <Property Type="Int32" Name="SD" Nullable="false" />
           <Property Type="Int32" Name="CurrentN" Nullable="false" />
-          </EntityType>
-        <EntityType Name="EDictionary" BaseType="SimpleDictionary.Entities.SimpleDictionary" >
-          <Property Type="Int32" Name="ParentSD0" Nullable="false" />
-          <NavigationProperty Name="Values" Relationship="SimpleDictionary.Entities.EDictionaryEDictValue" FromRole="EDictionary" ToRole="EDictValue" />
         </EntityType>
-        <EntityType Name="EDictValue" BaseType="SimpleDictionary.Entities.SimpleDictionary" >
+        <EntityType Name="EDictionary" BaseType="SimpleDictionary.Entities.SimpleDictionary">
+          <Property Type="Int32" Name="ParentSD0" Nullable="false" />
+          <NavigationProperty Name="Values" Relationship="SimpleDictionary.Entities.EDictionaryEDictValue"
+                              FromRole="EDictionary" ToRole="EDictValue" />
+        </EntityType>
+        <EntityType Name="EDictValue" BaseType="SimpleDictionary.Entities.SimpleDictionary">
           <Property Type="Int32" Name="IntValue" Nullable="false" />
           <Property Type="Double" Name="FloatValue" Nullable="false" />
           <Property Type="String" Name="StringValue" Nullable="false" />
           <Property Type="DateTime" Name="DateValue" Nullable="false" />
           <Property Type="String" Name="MultiValue" Nullable="false" />
           <Property Type="String" Name="MemoValue" Nullable="false" />
-          <NavigationProperty Name="Dictionary" Relationship="SimpleDictionary.Entities.EDictionaryEDictValue" FromRole="EDictValue" ToRole="EDictionary" />
+          <NavigationProperty Name="Dictionary" Relationship="SimpleDictionary.Entities.EDictionaryEDictValue"
+                              FromRole="EDictValue" ToRole="EDictionary" />
           <Property Type="Int32" Name="ParentSD" Nullable="false" />
         </EntityType>
         <Association Name="EDictionaryEDictValue">
@@ -136,7 +146,8 @@
                 <ScalarProperty Name="IntValue" ColumnName="IntValue" />
                 <Condition ColumnName="RecType" Value="V" />
               </MappingFragment>
-            </EntityTypeMapping></EntitySetMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -158,14 +169,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SDEntities" DisplayType="true">
-        <EntityTypeShape EntityType="SimpleDictionary.Entities.SimpleDictionary" Width="2.125" PointX="0.75" PointY="0.75" Height="2.7494921875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleDictionary.Entities.EDictionary" Width="1.75" PointX="4.625" PointY="0.625" Height="1.2110807291666668" />
-        <InheritanceConnector EntityType="SimpleDictionary.Entities.EDictionary" >
+        <EntityTypeShape EntityType="SimpleDictionary.Entities.SimpleDictionary" Width="2.125" PointX="0.75"
+                         PointY="0.75" Height="2.7494921875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimpleDictionary.Entities.EDictionary" Width="1.75" PointX="4.625" PointY="0.625"
+                         Height="1.2110807291666668" />
+        <InheritanceConnector EntityType="SimpleDictionary.Entities.EDictionary">
           <ConnectorPoint PointX="2.875" PointY="1.1968896484375" />
           <ConnectorPoint PointX="4.625" PointY="1.1968896484375" />
         </InheritanceConnector>
-        <EntityTypeShape EntityType="SimpleDictionary.Entities.EDictValue" Width="1.875" PointX="5.25" PointY="3.25" Height="2.5571907552083317" />
-        <InheritanceConnector EntityType="SimpleDictionary.Entities.EDictValue" >
+        <EntityTypeShape EntityType="SimpleDictionary.Entities.EDictValue" Width="1.875" PointX="5.25" PointY="3.25"
+                         Height="2.5571907552083317" />
+        <InheritanceConnector EntityType="SimpleDictionary.Entities.EDictValue">
           <ConnectorPoint PointX="2.875" PointY="3.4708968098958333" />
           <ConnectorPoint PointX="5.25" PointY="3.4708968098958333" />
         </InheritanceConnector>

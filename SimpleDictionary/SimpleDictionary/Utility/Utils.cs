@@ -21,7 +21,9 @@ namespace SimpleDictionary.Utility
 
         public enum TraceModeEnum
         {
-            None, Minimal, Full
+            None,
+            Minimal,
+            Full
         }
 
         public static TraceModeEnum TraceMode = TraceModeEnum.Full;
@@ -30,7 +32,7 @@ namespace SimpleDictionary.Utility
         {
             if (TraceMode != TraceModeEnum.None)
             {
-                Debug.Print(String.Format("{0}: {1} - {2}[{3}]",DateTime.Now.ToLongTimeString() , message, source, id));
+                Debug.Print(String.Format("{0}: {1} - {2}[{3}]", DateTime.Now.ToLongTimeString(), message, source, id));
             }
         }
 
@@ -41,7 +43,8 @@ namespace SimpleDictionary.Utility
             {
                 StreamWriter sw;
                 // Define log file path and name. 
-                string currentLogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName, @"Log.txt");
+                string currentLogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                    AppDomain.CurrentDomain.FriendlyName, @"Log.txt");
                 //string CurrentLogFilePath = AppDomain.CurrentDomain.BaseDirectory + AppDomain.CurrentDomain.FriendlyName + @"Log.txt";
                 sw = new StreamWriter(currentLogFilePath, true);
                 // Write data to log file. 
@@ -63,7 +66,7 @@ namespace SimpleDictionary.Utility
             bool res = true;
             for (int i = 1; i < varName.Length; i++)
             {
-                res &= (Char.IsLetterOrDigit(varName, i) || varName[i]=='_');
+                res &= (Char.IsLetterOrDigit(varName, i) || varName[i] == '_');
             }
             return res;
         }
@@ -71,14 +74,14 @@ namespace SimpleDictionary.Utility
 
         public static bool IsReservedWord(string word)
         {
-            if (_reservedWords==null)
+            if (_reservedWords == null)
             {
                 string s = ReadMultiTextParameter("ReservedWords");
                 _reservedWords = s.Split(Const.ListItemsSeparators, StringSplitOptions.RemoveEmptyEntries).ToList();
                 Debug.Print("Reserved words loaded: {0}", _reservedWords.Count);
             }
 
-            return _reservedWords.Any(w => w== word);
+            return _reservedWords.Any(w => w == word);
         }
 
 
@@ -89,7 +92,10 @@ namespace SimpleDictionary.Utility
             {
                 //var dictSD = dc.SimpleDictionary.Where(e => e.Name == dictionaryName & e.RecType == 'D').Select(e => e.SD).FirstOrDefault();
                 const int dictSD = 11; //Номер словаря с одиночными параметрами
-                s = dc.SimpleDictionary.Where(e => e.Name == paramName & e.ParentSD == dictSD).Select(e => e.StringValue).FirstOrDefault();
+                s =
+                    dc.SimpleDictionary.Where(e => e.Name == paramName & e.ParentSD == dictSD)
+                        .Select(e => e.StringValue)
+                        .FirstOrDefault();
             }
             return s;
         }
@@ -101,7 +107,10 @@ namespace SimpleDictionary.Utility
             using (var dc = new SDLinqDataContext(App.ConnectionString))
             {
                 const int dictSD = 11; //Номер словаря с одиночными параметрами
-                s = dc.SimpleDictionary.Where(e => e.Name == paramName & e.ParentSD == dictSD).Select(e => e.MemoValue).FirstOrDefault();
+                s =
+                    dc.SimpleDictionary.Where(e => e.Name == paramName & e.ParentSD == dictSD)
+                        .Select(e => e.MemoValue)
+                        .FirstOrDefault();
             }
             return s;
         }
@@ -121,7 +130,7 @@ namespace SimpleDictionary.Utility
                 case XmlSeverityType.Error:
                     Debug.Print("Error: {0}" + e.Message);
                     throw new XmlFormatException("Error: XML не соответствует схеме. " + e.Message);
-                //break;
+                    //break;
                 case XmlSeverityType.Warning:
                     Debug.Print("Warning {0}" + e.Message);
                     break;
@@ -182,7 +191,7 @@ namespace SimpleDictionary.Utility
                 using (DataContext db = new DataContext(sb.ConnectionString))
                 {
                     db.Connection.Open();
-                    var res = (IEnumerable<int>)db.ExecuteQuery(typeof(int), "SELECT COUNT(*) FROM SimpleDictionary");
+                    var res = (IEnumerable<int>) db.ExecuteQuery(typeof (int), "SELECT COUNT(*) FROM SimpleDictionary");
                     if (res.FirstOrDefault() > 0) return true;
                 }
             }
@@ -192,7 +201,6 @@ namespace SimpleDictionary.Utility
             }
             return false;
         }
-
     }
 
 
@@ -202,7 +210,6 @@ namespace SimpleDictionary.Utility
     /// <typeparam name="T">Сериализуемый тип</typeparam>
     public static class Serializator<T> where T : class
     {
-
         /// <summary>
         /// Сериализовать объект в строку XML
         /// </summary>
@@ -210,7 +217,7 @@ namespace SimpleDictionary.Utility
         /// <returns>Текст с XML</returns>
         public static string ToXml(T obj)
         {
-            XmlSerializer xmlFormat = new XmlSerializer(typeof(T));
+            XmlSerializer xmlFormat = new XmlSerializer(typeof (T));
             using (Stream mStream = new MemoryStream())
             {
                 xmlFormat.Serialize(mStream, obj);
@@ -231,8 +238,8 @@ namespace SimpleDictionary.Utility
         /// <returns>Десериализованный объект</returns>
         public static T FromXml(string xmlString)
         {
-            XmlSerializer xmlFormat = new XmlSerializer(typeof(T));
-            return (T)xmlFormat.Deserialize(XmlReader.Create(new StringReader(xmlString)));
+            XmlSerializer xmlFormat = new XmlSerializer(typeof (T));
+            return (T) xmlFormat.Deserialize(XmlReader.Create(new StringReader(xmlString)));
         }
 
 
@@ -270,7 +277,7 @@ namespace SimpleDictionary.Utility
         {
             BinaryFormatter bf = new BinaryFormatter();
             //MemoryStream ms = (MemoryStream)(Data);
-            return (T)bf.Deserialize(new MemoryStream(data));
+            return (T) bf.Deserialize(new MemoryStream(data));
         }
 
         /// <summary>
@@ -282,7 +289,7 @@ namespace SimpleDictionary.Utility
         {
             BinaryFormatter bf = new BinaryFormatter();
             // MemoryStream ms = (MemoryStream)(data);
-            return (T)bf.Deserialize(data);
+            return (T) bf.Deserialize(data);
         }
     }
 
@@ -304,14 +311,16 @@ namespace SimpleDictionary.Utility
             {
                 key1.SetValue(Key, Setting);
             }
-            catch (Exception){}
+            catch (Exception)
+            {
+            }
             finally
             {
                 key1.Close();
             }
         }
 
-        public static string GetSetting(string Section, string Key, string Default="")
+        public static string GetSetting(string Section, string Key, string Default = "")
         {
             if (Default == null) Default = "";
             string text2 = FormRegKey(Section);
@@ -328,7 +337,7 @@ namespace SimpleDictionary.Utility
                         {
                             return null;
                         }
-                        return (string)obj1;
+                        return (string) obj1;
                     }
                     return Default;
                 }
@@ -336,6 +345,4 @@ namespace SimpleDictionary.Utility
             return Default;
         }
     }
-    
-
 }

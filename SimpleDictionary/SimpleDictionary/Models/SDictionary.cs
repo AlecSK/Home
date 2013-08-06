@@ -11,21 +11,24 @@ namespace SimpleDictionary.Models
     [Serializable]
     public class SDictionary : CommonClass, IEditableObject, IDataErrorInfo
     {
-
-        ObservableCollection<SDValue> _dictionaryValues;
-        ObservableCollection<SDOption> _options;
+        private ObservableCollection<SDValue> _dictionaryValues;
+        private ObservableCollection<SDOption> _options;
 
         /// <summary>
         /// Конструктор для тестовых данных .
         /// </summary>
-        public SDictionary() {}
+        public SDictionary()
+        {
+        }
 
         /// <summary>
         /// Конструктор класса <see cref="SDictionary"/> для загрузки данных из базы.
         /// </summary>
-        internal SDictionary(int sd, char? recType, int? parentSD, int currentN, string name, string description, int? sortN,
-                        int? intValue, double? floatValue, string stringValue, DateTime? dateValue, string multiValue, string memoValue, 
-                        string comment, bool isDeleted, DateTime? creationDate, DateTime? changeDate)
+        internal SDictionary(int sd, char? recType, int? parentSD, int currentN, string name, string description,
+            int? sortN,
+            int? intValue, double? floatValue, string stringValue, DateTime? dateValue, string multiValue,
+            string memoValue,
+            string comment, bool isDeleted, DateTime? creationDate, DateTime? changeDate)
         {
             _sd = sd;
             _recType = recType;
@@ -45,7 +48,6 @@ namespace SimpleDictionary.Models
             _dateValue = dateValue;
             _multiValue = multiValue;
             _memoValue = memoValue;
-            
         }
 
 
@@ -59,7 +61,7 @@ namespace SimpleDictionary.Models
             this.CurrentN = newDictionaryNumber;
             this.ItemName = "Dictionary" + CurrentN;
             this.Description = "Словарь параметров " + CurrentN;
-            this.SortN = CurrentN * 10;
+            this.SortN = CurrentN*10;
             this.CreationDate = DateTime.Now;
             this.ChangeDate = DateTime.Now;
             this.IsChanged = true;
@@ -100,11 +102,11 @@ namespace SimpleDictionary.Models
             using (var dc = new SDLinqDataContext(App.ConnectionString))
             {
                 var query = from e in dc.SimpleDictionary
-                            where e.ParentSD == this.SD
-                            orderby e.SortN
-                            select new SDValue(e.SD, e.RecType, e.ParentSD, e.CurrentN, e.Name, e.Description, e.SortN,
-                                               e.IntValue, e.FloatValue, e.StringValue, e.DateValue, e.MultiValue, e.MemoValue,
-                                               e.Comment, e.IsDeleted, e.CreationDate, e.ChangeDate);
+                    where e.ParentSD == this.SD
+                    orderby e.SortN
+                    select new SDValue(e.SD, e.RecType, e.ParentSD, e.CurrentN, e.Name, e.Description, e.SortN,
+                        e.IntValue, e.FloatValue, e.StringValue, e.DateValue, e.MultiValue, e.MemoValue,
+                        e.Comment, e.IsDeleted, e.CreationDate, e.ChangeDate);
                 _dictionaryValues = new ObservableCollection<SDValue>(query.ToList());
             }
             Utils.TraceLog("Загрузка значений в", this.ItemName, _dictionaryValues.Count);
@@ -116,16 +118,16 @@ namespace SimpleDictionary.Models
         {
             if (String.IsNullOrEmpty(base._memoValue) || !Utils.IsValidXML(_memoValue, Resources.SDOptions))
             {
-                 //Заполняем набор опций значениями по-умолчанию.
+                //Заполняем набор опций значениями по-умолчанию.
                 _options = new ObservableCollection<SDOption>
-                           {
-                               new SDOption("IntValue", "Целочисленное", false),
-                               new SDOption("FloatValue", "Вещественное", false),
-                               new SDOption("StringValue", "Строковое", false),
-                               new SDOption("DateValue", "Дата", false),
-                               new SDOption("MultiValue", "Множественное", false),
-                               new SDOption("MemoValue", "Многострочный текст", false)
-                           };
+                {
+                    new SDOption("IntValue", "Целочисленное", false),
+                    new SDOption("FloatValue", "Вещественное", false),
+                    new SDOption("StringValue", "Строковое", false),
+                    new SDOption("DateValue", "Дата", false),
+                    new SDOption("MultiValue", "Множественное", false),
+                    new SDOption("MemoValue", "Многострочный текст", false)
+                };
             }
             else
             {
@@ -136,7 +138,7 @@ namespace SimpleDictionary.Models
                     dictionaryOption.IsChanged = false;
                 }
             }
-            return _options;               
+            return _options;
         }
 
         #region Implementation of IEditableObject
@@ -211,16 +213,14 @@ namespace SimpleDictionary.Models
 
                 if (columnName == "ItemName")
                 {
-                    if (_intValue == null || _intValue==0)
+                    if (_intValue == null || _intValue == 0)
                     {
-                        
                     }
                     else
                     {
                         if (!Utils.IsValidName(_name)) result = "Наименование содержит недопустимые символы!";
                         else if (Utils.IsReservedWord(_name)) result = "Нельзя использовать зарезервированные слова C#!";
                     }
-                    
                 }
                 return result;
             }
@@ -251,5 +251,4 @@ namespace SimpleDictionary.Models
 //            }
 //        }
     }
-
 }

@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 
 namespace SimpleDictionary.Models
 {
-
     [Serializable]
     public class SDOption : ObservableObject
     {
@@ -16,7 +15,9 @@ namespace SimpleDictionary.Models
         private bool _addComment;
         private bool _isChanged;
 
-        public SDOption() {}    //необходимо для сериализации
+        public SDOption()
+        {
+        } //необходимо для сериализации
 
         public SDOption(string name, string description, bool generateStruct)
         {
@@ -109,8 +110,5 @@ namespace SimpleDictionary.Models
         //    // Вызывается во время процесса десериализации.
         //    _isChanged = false;
         //}
-
     }
-
-
 }

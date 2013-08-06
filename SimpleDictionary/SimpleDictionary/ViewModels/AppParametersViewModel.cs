@@ -18,11 +18,10 @@ namespace SimpleDictionary.ViewModels
 {
     public class AppParametersViewModel : ObservableObject
     {
-        
-        ConnString _activeConnString;
-        static ObservableCollection<ConnString> _connStringList;
+        private ConnString _activeConnString;
+        private static ObservableCollection<ConnString> _connStringList;
         private bool _isExpanded = true;
-        
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -43,19 +42,18 @@ namespace SimpleDictionary.ViewModels
             }
 
             //восстанавливаем параметры последнего подключения по наименованию
-            string lastConnName = Utility.RegistryHelper.GetSetting("AppParameters", "LastConnName", Settings.Default.UseConnection);
+            string lastConnName = Utility.RegistryHelper.GetSetting("AppParameters", "LastConnName",
+                Settings.Default.UseConnection);
             ActiveConnString = _connStringList.FirstOrDefault(r => r.Name == lastConnName);
-
-            
         }
 
         #region Свойства
-        
+
         public bool IsExpanded
         {
             get { return _isExpanded; }
-            set 
-            { 
+            set
+            {
                 _isExpanded = value;
                 RaisePropertyChanged("IsExpanded");
             }
@@ -78,7 +76,6 @@ namespace SimpleDictionary.ViewModels
 
         #endregion
 
-
         public ICommand ConnectCommand
         {
             get { return new RelayCommand(ConnectExecute, CanConnectExecute); }
@@ -86,7 +83,7 @@ namespace SimpleDictionary.ViewModels
 
 
         [DebuggerStepThrough]
-        Boolean CanConnectExecute()
+        private Boolean CanConnectExecute()
         {
             return _activeConnString != null;
         }
@@ -178,7 +175,6 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        
         #region Подключение DataContext
 
         public void ConnectExecute()
@@ -190,13 +186,13 @@ namespace SimpleDictionary.ViewModels
                 if (Compose())
                 {
                     App.View.DataContext = MainWindowViewModel;
-                    ((MainWindowViewModel)MainWindowViewModel).LoadSearchResults();
+                    ((MainWindowViewModel) MainWindowViewModel).LoadSearchResults();
                     this.IsExpanded = false;
                 }
                 Utility.RegistryHelper.SaveSetting("AppParameters", "LastConnName", ActiveConnString.Name);
             }
         }
-        
+
         private bool Compose()
         {
             // An aggregate catalog can contain one or more types of catalog
@@ -217,18 +213,15 @@ namespace SimpleDictionary.ViewModels
             return true;
         }
 
-        [Import(typeof(MainWindowViewModel))]
+        [Import(typeof (MainWindowViewModel))]
         private object MainWindowViewModel { get; set; }
 
-        IDialogService _dialogService;
+        private IDialogService _dialogService;
 
-        [Import(typeof(IDialogService))]
+        [Import(typeof (IDialogService))]
         private object ModalDialogService
         {
-            set
-            {
-                _dialogService = (IDialogService) value;
-            }
+            set { _dialogService = (IDialogService) value; }
         }
 
         #endregion

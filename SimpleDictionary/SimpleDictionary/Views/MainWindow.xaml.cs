@@ -22,9 +22,6 @@ namespace SimpleDictionary.Views
         public MainWindow()
         {
             InitializeComponent();
-
         }
-
-
     }
 }

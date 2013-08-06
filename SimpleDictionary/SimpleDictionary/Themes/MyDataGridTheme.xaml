@@ -12,18 +12,18 @@
 
     <!-- DataGrid -->
     <Style TargetType="{x:Type DataGrid}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource GridBorder}"/>
-        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource GridLines}"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLines}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBorder}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{StaticResource GridLines}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLines}" />
     </Style>
 
     <Style TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="IsTabStop" Value="False" />
         <!--<Setter Property="SeparatorBrush" Value="{StaticResource HeaderSeparator}"/>-->
-        <Setter Property="Background" Value="{StaticResource HeaderBackground}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderBackground}" />
         <Setter Property="Padding" Value="5,2,5,2" />
         <Setter Property="BorderBrush" Value="{StaticResource HeaderBorder}" />
         <Setter Property="BorderThickness" Value="1" />

@@ -7,23 +7,24 @@ using SimpleDictionary.Utility;
 
 namespace SimpleDictionary.Models
 {
-
     [Serializable]
     public class SDValue : CommonClass, IEditableObject, IDataErrorInfo
     {
-
         /// <summary>
         /// Конструктор для тестовых данных.
         /// </summary>
-        public SDValue() {}
+        public SDValue()
+        {
+        }
 
 
         /// <summary>
         /// Конструктор класса <see cref="SDValue"/> для загрузки данных из базы.
         /// </summary>
-        internal SDValue(int sd, char? recType, int? parentSD, int currentN, string name, string description, int? sortN, 
-                        int? intValue, double? floatValue, string stringValue, DateTime? dateValue, string multiValue, string memoValue, 
-                        string comment, bool isDeleted, DateTime? creationDate, DateTime? changeDate)
+        internal SDValue(int sd, char? recType, int? parentSD, int currentN, string name, string description, int? sortN,
+            int? intValue, double? floatValue, string stringValue, DateTime? dateValue, string multiValue,
+            string memoValue,
+            string comment, bool isDeleted, DateTime? creationDate, DateTime? changeDate)
         {
             _sd = sd;
             _recType = recType;
@@ -43,7 +44,6 @@ namespace SimpleDictionary.Models
             _dateValue = dateValue;
             _multiValue = multiValue;
             _memoValue = memoValue;
-
         }
 
 
@@ -51,7 +51,7 @@ namespace SimpleDictionary.Models
         /// Конструктор нового пустого элемента (на базе информации из родительского словаря).
         /// </summary>
         /// <param name="parentDict">Родительский словарь.</param>
-        public SDValue (SDictionary parentDict)
+        public SDValue(SDictionary parentDict)
         {
             int maxN;
             ParentSD = 0;
@@ -70,9 +70,12 @@ namespace SimpleDictionary.Models
             int maxLocalN = 10;
             try
             {
-                maxLocalN = parentDict.DictionaryValues.Max(r => r.CurrentN);   //Максимальный в текущем экземпляре приложения
+                maxLocalN = parentDict.DictionaryValues.Max(r => r.CurrentN);
+                    //Максимальный в текущем экземпляре приложения
             }
-            catch (InvalidOperationException) {}
+            catch (InvalidOperationException)
+            {
+            }
 
             maxN = maxN > maxLocalN ? maxN : maxLocalN;
             this.ParentSD = parentDict.SD;
@@ -137,7 +140,6 @@ namespace SimpleDictionary.Models
                     this.SysMessage = e.Message;
                     this.IsValid = false;
                 }
-
             }
             Utils.TraceLog("сохранение параметра", this.ItemName, Convert.ToInt32(this.IsValid));
             return this.IsValid;
@@ -185,7 +187,7 @@ namespace SimpleDictionary.Models
             this.IsDeleted = backupCopy.IsDeleted;
             this.CreationDate = backupCopy.CreationDate;
             this.ChangeDate = backupCopy.ChangeDate;
-            
+
             this.IntValue = backupCopy.IntValue;
             this.FloatValue = backupCopy.FloatValue;
             this.StringValue = backupCopy.StringValue;
@@ -197,7 +199,6 @@ namespace SimpleDictionary.Models
         }
 
         #endregion
-
 
         #region Implementation of IDataErrorInfo
 
@@ -236,6 +237,4 @@ namespace SimpleDictionary.Models
 
         #endregion
     }
-
-
 }

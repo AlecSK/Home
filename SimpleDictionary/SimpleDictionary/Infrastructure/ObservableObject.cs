@@ -7,11 +7,9 @@ using System.Linq.Expressions;
 
 namespace SimpleDictionary.Infrastructure
 {
-
     [Serializable]
     public abstract class ObservableObject : INotifyPropertyChanged
     {
-
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 

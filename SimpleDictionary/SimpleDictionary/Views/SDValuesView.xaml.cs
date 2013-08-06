@@ -25,6 +25,5 @@ namespace SimpleDictionary.Views
         {
             InitializeComponent();
         }
-
     }
 }

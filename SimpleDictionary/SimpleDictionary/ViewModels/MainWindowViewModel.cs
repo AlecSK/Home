@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.ComponentModel.Composition;
-
 using SimpleDictionary.Models;
 using SimpleDictionary.Infrastructure;
 using SimpleDictionary.Dialog;
@@ -52,9 +51,9 @@ namespace SimpleDictionary.ViewModels
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value != null) 
+            if (value != null)
             {
-                Debug.Print("Тип: {0}, значение: {1}",value.GetType(),value);
+                Debug.Print("Тип: {0}, значение: {1}", value.GetType(), value);
                 SDValue dictValue = (value as BindingGroup).Items[0] as SDValue;
                 if (dictValue != null)
                 {
@@ -77,7 +76,6 @@ namespace SimpleDictionary.ViewModels
 
     public class SDValueValidationRule : ValidationRule
     {
-
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
             SDValue dictValue = (value as BindingGroup).Items[0] as SDValue;
@@ -92,26 +90,24 @@ namespace SimpleDictionary.ViewModels
                 return ValidationResult.ValidResult;
         }
     }
-    
+
     #endregion
 
-
-    [Export(typeof(MainWindowViewModel))]
+    [Export(typeof (MainWindowViewModel))]
     public class MainWindowViewModel : ObservableObject
     {
-
         #region Declarations
 
-        readonly IDialogService _dialogService;
-        ISDRepository _dataRepository;
-        SDictionary _activeDictionary;
-        SDValue _activeSDValue;
-        ObservableCollection<SearchResult> _searchResults;
-        SearchResult _searchResultSelectedItem;
+        private readonly IDialogService _dialogService;
+        private ISDRepository _dataRepository;
+        private SDictionary _activeDictionary;
+        private SDValue _activeSDValue;
+        private ObservableCollection<SearchResult> _searchResults;
+        private SearchResult _searchResultSelectedItem;
         private bool _isDataChanged = false;
         private bool _canNavigate = true;
         private string _filterString;
-        
+
         #endregion
 
         #region Constructor
@@ -121,7 +117,6 @@ namespace SimpleDictionary.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-
         }
 
 
@@ -139,11 +134,14 @@ namespace SimpleDictionary.ViewModels
 
         #endregion //Constructor
 
-
         #region Свойства элементов интерфейса, не связанных с моделью данных
 
-        private RowDetailsVisibilityMode _rowDetailsVisibilityMode = 
-            new RowDetailsVisibilityMode { VisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected, Description = "Строка" };
+        private RowDetailsVisibilityMode _rowDetailsVisibilityMode =
+            new RowDetailsVisibilityMode
+            {
+                VisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected,
+                Description = "Строка"
+            };
 
         public ObservableCollection<RowDetailsVisibilityMode> RowDetailsVisibilityModesList
         {
@@ -151,9 +149,21 @@ namespace SimpleDictionary.ViewModels
             {
                 return new ObservableCollection<RowDetailsVisibilityMode>
                 {
-                    new RowDetailsVisibilityMode{ VisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed, Description = "Скрыты"},
-                    new RowDetailsVisibilityMode{ VisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected, Description = "Строка"},
-                    new RowDetailsVisibilityMode{ VisibilityMode = DataGridRowDetailsVisibilityMode.Visible, Description = "Все"}
+                    new RowDetailsVisibilityMode
+                    {
+                        VisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed,
+                        Description = "Скрыты"
+                    },
+                    new RowDetailsVisibilityMode
+                    {
+                        VisibilityMode = DataGridRowDetailsVisibilityMode.VisibleWhenSelected,
+                        Description = "Строка"
+                    },
+                    new RowDetailsVisibilityMode
+                    {
+                        VisibilityMode = DataGridRowDetailsVisibilityMode.Visible,
+                        Description = "Все"
+                    }
                 };
             }
         }
@@ -161,10 +171,7 @@ namespace SimpleDictionary.ViewModels
 
         public RowDetailsVisibilityMode SelectedRowDetailsVisibilityMode
         {
-            get
-            {
-                return (_rowDetailsVisibilityMode);
-            }
+            get { return (_rowDetailsVisibilityMode); }
             set
             {
                 _rowDetailsVisibilityMode = value;
@@ -176,7 +183,7 @@ namespace SimpleDictionary.ViewModels
         }
 
 
-        void SetRowDetailsVisibility(DataGridRowDetailsVisibilityMode newMode)
+        private void SetRowDetailsVisibility(DataGridRowDetailsVisibilityMode newMode)
         {
             SelectedRowDetailsVisibilityMode =
                 this.RowDetailsVisibilityModesList.FirstOrDefault(m => m.VisibilityMode == newMode);
@@ -184,13 +191,20 @@ namespace SimpleDictionary.ViewModels
 
         public bool IsRowDetailsVisibleWhenSelected
         {
-            get { return SelectedRowDetailsVisibilityMode.VisibilityMode == DataGridRowDetailsVisibilityMode.VisibleWhenSelected; }
+            get
+            {
+                return SelectedRowDetailsVisibilityMode.VisibilityMode ==
+                       DataGridRowDetailsVisibilityMode.VisibleWhenSelected;
+            }
             set { if (value) SetRowDetailsVisibility(DataGridRowDetailsVisibilityMode.VisibleWhenSelected); }
         }
 
         public bool IsRowDetailsCollapsed
         {
-            get { return SelectedRowDetailsVisibilityMode.VisibilityMode == DataGridRowDetailsVisibilityMode.Collapsed; }
+            get
+            {
+                return SelectedRowDetailsVisibilityMode.VisibilityMode == DataGridRowDetailsVisibilityMode.Collapsed;
+            }
             set { if (value) SetRowDetailsVisibility(DataGridRowDetailsVisibilityMode.Collapsed); }
         }
 
@@ -201,7 +215,6 @@ namespace SimpleDictionary.ViewModels
         }
 
         #endregion
-
 
         #region Properites
 
@@ -243,8 +256,8 @@ namespace SimpleDictionary.ViewModels
                 res = false;
             else
             {
-                res = (ActiveDictionary.IsChanged || ActiveDictionary.DictionaryValues.Any(r => r.IsChanged) 
-                                    || ActiveDictionary.DictionaryOptions.Any(r => r.IsChanged));
+                res = (ActiveDictionary.IsChanged || ActiveDictionary.DictionaryValues.Any(r => r.IsChanged)
+                       || ActiveDictionary.DictionaryOptions.Any(r => r.IsChanged));
             }
             IsDataChanged = res;
             CanNavigate = !res;
@@ -253,10 +266,7 @@ namespace SimpleDictionary.ViewModels
 
         public bool IsDataChanged
         {
-            get
-            {
-                return _isDataChanged;
-            }
+            get { return _isDataChanged; }
             set
             {
                 if (_isDataChanged != value)
@@ -295,7 +305,7 @@ namespace SimpleDictionary.ViewModels
             {
                 _activeSDValue = value;
                 RaisePropertyChanged("ActiveSDValue");
-                if (value==null)
+                if (value == null)
                 {
                     Utils.TraceLog("Выбор элемента", "Пусто", -1);
                 }
@@ -363,7 +373,6 @@ namespace SimpleDictionary.ViewModels
 
         #endregion //Commands
 
-
         #region Can Methods
 
         /// <summary>
@@ -384,71 +393,70 @@ namespace SimpleDictionary.ViewModels
 
 
         [DebuggerStepThrough]
-        Boolean CanNewExecute()
+        private Boolean CanNewExecute()
         {
             return !IsDataChanged;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanDeleteChildExecute()
+        private Boolean CanDeleteChildExecute()
         {
             return this.ActiveSDValue != null;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanSaveExecute()
+        private Boolean CanSaveExecute()
         {
             return CheckDataChange();
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanDeleteExecute()
+        private Boolean CanDeleteExecute()
         {
             return this.ActiveDictionary != null;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanCancelExecute()
+        private Boolean CanCancelExecute()
         {
-            return CheckDataChange();  //this.ActiveDictionary != null;
+            return CheckDataChange(); //this.ActiveDictionary != null;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanGenerateExecute()
+        private Boolean CanGenerateExecute()
         {
             return !IsDataChanged;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanNewChildExecute()
+        private Boolean CanNewChildExecute()
         {
             return this.ActiveDictionary != null;
         }
 
 
         [DebuggerStepThrough]
-        Boolean CanClearFilterExecute()
+        private Boolean CanClearFilterExecute()
         {
             return !string.IsNullOrEmpty(_filterString);
         }
 
         #endregion //Can Methods
 
-
-        void ClearFilterExecute()
+        private void ClearFilterExecute()
         {
             if (!CanClearFilterExecute()) return;
             FilterString = null;
             ResetForm();
         }
 
-        void SaveExecute()
+        private void SaveExecute()
         {
             if (!CanSaveExecute()) return;
             try
@@ -472,7 +480,7 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        void ShowSaveErrors()
+        private void ShowSaveErrors()
         {
             var saveErrors = ActiveDictionary.DictionaryValues.Where(r => r.IsValid == false);
             foreach (SDValue saveError in saveErrors)
@@ -481,9 +489,11 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        void DeleteExecute()
+        private void DeleteExecute()
         {
-            if (!CanDeleteExecute() || this._dialogService.ShowMessage(Const.CONFIRM_DELETE_DICTIONARY, Const.CONFIRM_DELETE_CAPTION, DialogButton.OKCancel, DialogImage.Question) != DialogResponse.OK) return;
+            if (!CanDeleteExecute() ||
+                this._dialogService.ShowMessage(Const.CONFIRM_DELETE_DICTIONARY, Const.CONFIRM_DELETE_CAPTION,
+                    DialogButton.OKCancel, DialogImage.Question) != DialogResponse.OK) return;
             try
             {
                 _dataRepository.Remove(this.ActiveDictionary);
@@ -495,13 +505,13 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        void CancelExecute()
+        private void CancelExecute()
         {
             if (!CanCancelExecute()) return;
             Refresh();
         }
 
-        void GenerateExecute()
+        private void GenerateExecute()
         {
             if (!CanGenerateExecute()) return;
             try
@@ -515,7 +525,7 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        void NewExecute()
+        private void NewExecute()
         {
             this.ActiveDictionary = _dataRepository.Create();
             this.SearchResultSelectedItem = null;
@@ -525,7 +535,7 @@ namespace SimpleDictionary.ViewModels
         /// <summary>
         /// Обновление данных из модели.
         /// </summary>
-        void ResetForm() 
+        private void ResetForm()
         {
             int lastSD = -1, lastChildSD = -1;
             if (ActiveDictionary != null)
@@ -553,7 +563,7 @@ namespace SimpleDictionary.ViewModels
         /// <summary>
         /// Обновление данных из базы.
         /// </summary>
-        void Refresh()  
+        private void Refresh()
         {
             int lastSD = -1, lastChildSD = -1;
             if (ActiveDictionary != null)
@@ -583,7 +593,8 @@ namespace SimpleDictionary.ViewModels
         {
             try
             {
-                this.SearchResults = new ObservableCollection<SearchResult>(this._dataRepository.GetSearchResults(_filterString));
+                this.SearchResults =
+                    new ObservableCollection<SearchResult>(this._dataRepository.GetSearchResults(_filterString));
             }
             catch (Exception ex)
             {
@@ -591,7 +602,7 @@ namespace SimpleDictionary.ViewModels
             }
         }
 
-        void RecordSelected(SearchResult searchResult)
+        private void RecordSelected(SearchResult searchResult)
         {
             if (searchResult == null) return;
             try
@@ -605,15 +616,17 @@ namespace SimpleDictionary.ViewModels
         }
 
 
-        void NewChildExecute()
+        private void NewChildExecute()
         {
             this.ActiveSDValue = _dataRepository.CreateChild(ActiveDictionary);
         }
 
 
-        void DeleteChildExecute()
+        private void DeleteChildExecute()
         {
-            if (!CanDeleteChildExecute() || this._dialogService.ShowMessage(Const.CONFIRM_DELETE_VALUE, Const.CONFIRM_DELETE_CAPTION, DialogButton.OKCancel, DialogImage.Question) != DialogResponse.OK) return;
+            if (!CanDeleteChildExecute() ||
+                this._dialogService.ShowMessage(Const.CONFIRM_DELETE_VALUE, Const.CONFIRM_DELETE_CAPTION,
+                    DialogButton.OKCancel, DialogImage.Question) != DialogResponse.OK) return;
             try
             {
                 _dataRepository.RemoveChild(_activeDictionary, _activeSDValue);
@@ -624,8 +637,5 @@ namespace SimpleDictionary.ViewModels
                 this._dialogService.ShowException(ex.Message);
             }
         }
-
-
-
     }
 }

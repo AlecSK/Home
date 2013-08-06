@@ -9,80 +9,93 @@ namespace SimpleDictionary.Dialog
     /// MessageBox is a bummer way to display messages in WPF.  Use TaskDialog or a TaskDialog replacment for a nicer experiece.
     /// You should also have File Open, File Save, Folder Browswer operations.
     /// </summary>
-    [Export(typeof(IDialogService))]
+    [Export(typeof (IDialogService))]
     public class ModalDialogService : IDialogService
     {
-
         #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModalDialogService"/> class.
         /// </summary>
-        public ModalDialogService() { }
+        public ModalDialogService()
+        {
+        }
 
         #endregion
 
         #region Methods
 
-        static MessageBoxButton GetButton(DialogButton button)
+        private static MessageBoxButton GetButton(DialogButton button)
         {
-
             switch (button)
             {
+                case DialogButton.OK:
+                    return MessageBoxButton.OK;
 
-                case DialogButton.OK: return MessageBoxButton.OK;
+                case DialogButton.OKCancel:
+                    return MessageBoxButton.OKCancel;
 
-                case DialogButton.OKCancel: return MessageBoxButton.OKCancel;
+                case DialogButton.YesNo:
+                    return MessageBoxButton.YesNo;
 
-                case DialogButton.YesNo: return MessageBoxButton.YesNo;
-
-                case DialogButton.YesNoCancel: return MessageBoxButton.YesNoCancel;
+                case DialogButton.YesNoCancel:
+                    return MessageBoxButton.YesNoCancel;
             }
             throw new ArgumentOutOfRangeException("button", "Invalid button");
         }
 
-        static MessageBoxImage GetImage(DialogImage image)
+        private static MessageBoxImage GetImage(DialogImage image)
         {
-
             switch (image)
             {
+                case DialogImage.Asterisk:
+                    return MessageBoxImage.Asterisk;
 
-                case DialogImage.Asterisk: return MessageBoxImage.Asterisk;
+                case DialogImage.Error:
+                    return MessageBoxImage.Error;
 
-                case DialogImage.Error: return MessageBoxImage.Error;
+                case DialogImage.Exclamation:
+                    return MessageBoxImage.Exclamation;
 
-                case DialogImage.Exclamation: return MessageBoxImage.Exclamation;
+                case DialogImage.Hand:
+                    return MessageBoxImage.Hand;
 
-                case DialogImage.Hand: return MessageBoxImage.Hand;
+                case DialogImage.Information:
+                    return MessageBoxImage.Information;
 
-                case DialogImage.Information: return MessageBoxImage.Information;
+                case DialogImage.None:
+                    return MessageBoxImage.None;
 
-                case DialogImage.None: return MessageBoxImage.None;
+                case DialogImage.Question:
+                    return MessageBoxImage.Question;
 
-                case DialogImage.Question: return MessageBoxImage.Question;
+                case DialogImage.Stop:
+                    return MessageBoxImage.Stop;
 
-                case DialogImage.Stop: return MessageBoxImage.Stop;
-
-                case DialogImage.Warning: return MessageBoxImage.Warning;
+                case DialogImage.Warning:
+                    return MessageBoxImage.Warning;
             }
             throw new ArgumentOutOfRangeException("image", "Invalid image");
         }
 
-        static DialogResponse GetResponse(MessageBoxResult result)
+        private static DialogResponse GetResponse(MessageBoxResult result)
         {
-
             switch (result)
             {
+                case MessageBoxResult.Cancel:
+                    return DialogResponse.Cancel;
 
-                case MessageBoxResult.Cancel: return DialogResponse.Cancel;
+                case MessageBoxResult.No:
+                    return DialogResponse.No;
 
-                case MessageBoxResult.No: return DialogResponse.No;
+                case MessageBoxResult.None:
+                    return DialogResponse.None;
 
-                case MessageBoxResult.None: return DialogResponse.None;
+                case MessageBoxResult.OK:
+                    return DialogResponse.OK;
 
-                case MessageBoxResult.OK: return DialogResponse.OK;
-
-                case MessageBoxResult.Yes: return DialogResponse.Yes;
+                case MessageBoxResult.Yes:
+                    return DialogResponse.Yes;
             }
             throw new ArgumentOutOfRangeException("result", "Invalid result");
         }
@@ -114,5 +127,4 @@ namespace SimpleDictionary.Dialog
 
         #endregion
     }
-
 }

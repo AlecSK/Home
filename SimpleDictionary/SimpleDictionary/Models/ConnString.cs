@@ -3,7 +3,6 @@ using SimpleDictionary.Infrastructure;
 
 namespace SimpleDictionary.Models
 {
-
     [Serializable]
     public class ConnString : ObservableObject
     {
