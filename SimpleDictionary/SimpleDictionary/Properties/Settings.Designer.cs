@@ -69,8 +69,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\Projects;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;" +
-            "Integrated Security=True;Connect Timeout=10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;Int" +
+            "egrated Security=True;Connect Timeout=10")]
         public string DBConnectionString {
             get {
                 return ((string)(this["DBConnectionString"]));
@@ -80,8 +80,8 @@ namespace SimpleDictionary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\Projects;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;" +
-            "Integrated Security=True;Connect Timeout=10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=|DataDirectory|\\DB\\SupportDB.mdf;Int" +
+            "egrated Security=True;Connect Timeout=10")]
         public string ConnectionLocalDB {
             get {
                 return ((string)(this["ConnectionLocalDB"]));
