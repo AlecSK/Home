@@ -10,15 +10,7 @@ namespace SimpleDictionary.UnitTests
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var a = 1;
-            var b = 4;
-            var c = "2";
-            c += a++ + b.ToString() + ++a;
-            Debug.Print("{0}", c);
-        }
+
 
         [TestMethod]
         public void TestMethod2()
